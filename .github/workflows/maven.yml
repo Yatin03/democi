@@ -36,6 +36,6 @@ jobs:
         image: xdlucifer/springboot-images
         tags: latest
         registry: docker.io
-        dockerfile: Dockerfile
+        dockerfile: target/docker/adderximg/build/Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
