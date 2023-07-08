@@ -20,6 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     
     permissions:
+      security-events: write
+      actions: read
       contents: read
       issues: read
       checks: write
@@ -77,3 +79,5 @@ jobs:
       uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: snyk.sarif
+      env:
+        SNYK_TOKEN: b249b6a4-7444-46a2-bdf0-32383f4281a8
