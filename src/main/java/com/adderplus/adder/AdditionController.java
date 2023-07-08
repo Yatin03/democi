@@ -9,6 +9,6 @@ public class AdditionController {
 
     @GetMapping("/add")
     public int addNumbers(@RequestParam("num1") int num1, @RequestParam("num2") int num2) {
-        return num1 - num2;
+        return num1 + num2;
     }
 }
