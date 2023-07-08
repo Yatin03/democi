@@ -63,3 +63,13 @@ jobs:
         dockerfile: Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+        
+    - name: Scan Docker image 🐳
+      uses: snyk/actions/docker@master
+      continue-on-error: true
+      with:
+        image: docker.io/xdlucifer/springboot-images
+        args: --file=Dockerfile --severity-threshold=high --sarif-file-output=snyk.sarif
+      env:
+        SNYK_TOKEN: d7d744b8-af11-41d4-8521-1ae300531de3
+      
