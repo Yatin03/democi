@@ -39,11 +39,11 @@ jobs:
       run: mvn clean verify --file pom.xml --batch-mode --no-transfer-progress
  
     - name: Publish Test Results
-      uses: actions/upload-artifact@v2
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
       with:
-        name: Test Results
-        path: target/surefire-reports
-
+        files: |
+          **/surefire-reports/*.xml
       
     - name: build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v5
