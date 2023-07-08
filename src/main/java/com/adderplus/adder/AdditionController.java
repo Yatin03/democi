@@ -11,4 +11,10 @@ public class AdditionController {
     public int addNumbers(@RequestParam("num1") int num1, @RequestParam("num2") int num2) {
         return num1 + num2;
     }
+
+    @GetMapping("/health")
+    public String healthCheck(){
+        return "{\"Status\" : \"OK\"}";
+
+    }
 }
