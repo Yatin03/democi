@@ -21,9 +21,9 @@ jobs:
     
     permissions:
       security-events: write
-      actions: read
-      contents: read
-      issues: read
+      actions: write
+      contents: write
+      issues: write
       checks: write
       pull-requests: write
       
@@ -79,3 +79,4 @@ jobs:
       uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: snyk.sarif
+        wait-for-processing: true 
