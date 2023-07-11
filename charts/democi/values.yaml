@@ -1,0 +1,93 @@
+name: adm
+namespace: dmp-system
+
+
+imagePullSecrets:
+  - name: dmpregistrykey
+
+serviceAccount:
+  create: true
+  name: adm-svc-acct
+  annotations: {}
+
+podAnnotations:
+  sidecar.istio.io/inject: "true"
+
+podSecurityContext:
+  fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/service-upstream: "true"
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+profiles:
+  default:
+    adm:
+      resources:
+        limits:
+          cpu: '1'
+          memory: 4Gi
+      istio:
+        cpu: 100m
+        memory: 400Mi
+  small:
+    adm:
+      resources:
+        limits:
+          cpu: '1'
+          memory: 4Gi
+      istio:
+        cpu: 50m
+        memory: 200Mi
+  medium:
+    adm:
+      resources:
+        limits:
+          cpu: '1'
+          memory: 5Gi
+      istio:
+        cpu: 100m
+        memory: 400Mi
+  large:
+    adm:
+      resources:
+        limits:
+          cpu: '1'
+          memory: 6Gi
+      istio:
+        cpu: 400m
+        memory: 1600Mi
