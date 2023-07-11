@@ -20,8 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     
     permissions:
-      contents: read
-      issues: read
+      security-events: write
+      actions: write
+      contents: write
+      issues: write
       checks: write
       pull-requests: write
       
@@ -63,3 +65,18 @@ jobs:
         dockerfile: Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+        
+    - name: Scan Docker image 🐳
+      uses: snyk/actions/docker@master
+      continue-on-error: true
+      with:
+        image: docker.io/xdlucifer/springboot-images
+        args: --file=Dockerfile --severity-threshold=high --sarif-file-output=snyk.sarif
+      env:
+        SNYK_TOKEN: b249b6a4-7444-46a2-bdf0-32383f4281a8
+
+    - name: Upload Snyk report as sarif 📦
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: snyk.sarif
+        wait-for-processing: true 
